@@ -1,6 +1,6 @@
 /// Application-wide constants including networking configuration and environment flags.
 abstract final class AppConstants {
-  static const String appName = 'AIMS-Diabetes';
+  static const String appName = 'AIMSD';
 
   /// Base URL of the FastAPI backend.
   /// Defaults to Android emulator's loopback IP (`http://10.0.2.2:8000`).

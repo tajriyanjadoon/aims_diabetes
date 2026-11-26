@@ -79,7 +79,7 @@ class AppLogo extends StatelessWidget {
     this.height,
     this.width,
     this.fit = BoxFit.contain,
-    this.semanticLabel = 'AIMS-Diabetes Logo',
+    this.semanticLabel = 'AIMSD Logo',
   });
 
   /// Factory constructor for a logo placed on a dark background.
@@ -89,14 +89,14 @@ class AppLogo extends StatelessWidget {
     this.height,
     this.width,
     this.fit = BoxFit.contain,
-    this.semanticLabel = 'AIMS-Diabetes Logo',
+    this.semanticLabel = 'AIMSD Logo',
   }) : variant = AppLogoVariant.whiteHorizontal;
 
   /// Factory constructor for a compact icon mark (symbol only).
   const AppLogo.symbol({
     super.key,
     double size = 40,
-    this.semanticLabel = 'AIMS-Diabetes Mark',
+    this.semanticLabel = 'AIMSD Mark',
   })  : variant = AppLogoVariant.symbolOnly,
         width = size,
         height = size,
