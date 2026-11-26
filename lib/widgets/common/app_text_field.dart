@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../core/theme/app_theme.dart';
 
@@ -31,6 +32,10 @@ class AppTextField extends StatefulWidget {
     this.maxLines = 1,
     this.autovalidateMode,
     this.focusNode,
+    this.inputFormatters,
+    this.maxLength,
+    this.textAlign = TextAlign.start,
+    this.textStyle,
   });
 
   final String? label;
@@ -52,6 +57,17 @@ class AppTextField extends StatefulWidget {
   final int maxLines;
   final AutovalidateMode? autovalidateMode;
   final FocusNode? focusNode;
+
+  /// Optional input formatters (e.g. digits-only for OTP codes).
+  /// Password fields deliberately apply none so every character is accepted.
+  final List<TextInputFormatter>? inputFormatters;
+
+  /// Optional maximum length (the character counter is hidden).
+  final int? maxLength;
+  final TextAlign textAlign;
+
+  /// Optional override of the input text style.
+  final TextStyle? textStyle;
 
   @override
   State<AppTextField> createState() => _AppTextFieldState();
@@ -104,9 +120,15 @@ class _AppTextFieldState extends State<AppTextField> {
           controller: widget.controller,
           initialValue: widget.initialValue,
           validator: widget.validator,
-          keyboardType: widget.keyboardType,
+          keyboardType: widget.keyboardType ??
+              (widget.isPassword ? TextInputType.visiblePassword : null),
           textInputAction: widget.textInputAction,
           obscureText: widget.isPassword ? _obscureText : false,
+          autocorrect: !widget.isPassword,
+          enableSuggestions: !widget.isPassword,
+          inputFormatters: widget.inputFormatters,
+          maxLength: widget.maxLength,
+          textAlign: widget.textAlign,
           enabled: widget.enabled,
           readOnly: widget.readOnly,
           autofocus: widget.autofocus,
@@ -115,8 +137,13 @@ class _AppTextFieldState extends State<AppTextField> {
           maxLines: widget.isPassword ? 1 : widget.maxLines,
           autovalidateMode: widget.autovalidateMode ?? AutovalidateMode.onUserInteraction,
           focusNode: widget.focusNode,
-          style: AppTextStyles.bodyDefault.copyWith(color: colors.textPrimary),
+          style: widget.textStyle ??
+              AppTextStyles.bodyDefault.copyWith(color: colors.textPrimary),
           decoration: InputDecoration(
+            counterText: widget.maxLength != null ? '' : null,
+            // Let long helper/error messages wrap instead of being ellipsized.
+            helperMaxLines: 4,
+            errorMaxLines: 3,
             hintText: widget.hintText,
             helperText: widget.helperText,
             prefixIcon: widget.prefixIcon,

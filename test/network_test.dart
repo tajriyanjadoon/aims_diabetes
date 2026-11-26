@@ -56,7 +56,7 @@ class FakeSecureStorage extends FlutterSecureStorage {
 void main() {
   group('AppConstants', () {
     test('Default values conform to architecture specification', () {
-      expect(AppConstants.appName, 'AIMS-Diabetes');
+      expect(AppConstants.appName, 'AIMSD');
       expect(AppConstants.apiPrefix, '/api/v1');
       expect(AppConstants.apiBaseUrl, contains('/api/v1'));
       expect(AppConstants.connectTimeout.inSeconds, 10);
